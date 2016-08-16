@@ -50,9 +50,10 @@ var requestHandler = function(request, response) {
     request.on('data', function(chunk) {
       var chunk = JSON.parse(chunk);
       results.push(chunk);
-    }).on('end', function () {
+    });
+    request.on('end', function () {
       response.writeHead(201, defaultCorsHeaders);
-      headers['Content-Type'] = 'application/json';
+      // responseBody.headers['Content-Type'] = 'application/json';
       response.end(JSON.stringify(responseBody));
     });
   }
