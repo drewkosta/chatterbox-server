@@ -116,4 +116,28 @@ describe('Node Server Request Listener Function', function() {
       });
   });
 
+
+  it('Should send an object containing a `results` array of objects', function() {
+    var req = new stubs.request('/classes/messages', 'GET');
+    var res = new stubs.response();
+
+    requestHandler(req, res);
+
+    var parsedBody = JSON.parse(res._data);
+    expect(parsedBody.results[0]).to.be.an('object');
+    expect(res._ended).to.equal(true);
+  });
+
+  it('Should send an object containing a `results` array of objects with two properties', function() {
+    var req = new stubs.request('/classes/messages', 'GET');
+    var res = new stubs.response();
+
+    requestHandler(req, res);
+
+    var parsedBody = JSON.parse(res._data);
+    expect(parsedBody.results[0].message).to.be.a('string');
+    expect(parsedBody.results[0].username).to.be.a('string');
+    expect(res._ended).to.equal(true);
+  });
+
 });
